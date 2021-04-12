@@ -13,16 +13,8 @@ let app = new Vue({
                     this.films = response.data.results
                 });
         }
-
     },
-    mounted() {
-
-    },
-    computed: {
-
-
-    },
-    created() {
-
-    },
+    mounted() {},
+    computed: {},
+    created() {},
 })
