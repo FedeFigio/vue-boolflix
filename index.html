@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="assets/css/master.css">
+    <title>Vue Dischi Musicali</title>
+</head>
+
+<body>
+    <div id="root">
+        <header>
+
+            <nav>
+                <div class="logo"></div>
+                <div class="menu">
+                    <input type="text" placeholder="cerca" v-model="searchFilm" @keyup.enter="mariello">
+                </div>
+            </nav>
+        </header>
+        <main>
+            <div class="row">
+                <div class="card" v-for="(film, index) in films" :key="index">
+                    <div class="card-front">
+                        <img :src="`https://image.tmdb.org/t/p/original/${film.poster_path}`" alt="">
+
+                    </div>
+                    <div class="card-rear">
+
+                    </div>
+                </div>
+
+            </div>
+        </main>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue "></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.20.0/axios.min.js"></script>
+    <script src="assets/js/main.js"></script>
+</body>
+
+</html>
