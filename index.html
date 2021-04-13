@@ -23,8 +23,7 @@
         </header>
         <main>
             <div class="row">
-
-
+                <h1 class="category">Film</h1>
                 <div class="card" v-for="(film, index) in films" :key="index">
                     <div class="card-front">
                         <img :src="`https://image.tmdb.org/t/p/original/${film.poster_path}`" alt="">
@@ -32,12 +31,28 @@
                     <div class="card-rear">
                         <span class="title">{{film.title}}</span>
                         <span>{{film.original_title}}</span>
-                        <span>{{film.original_language}}</span>
+                        <img class="flag" v-if="film.original_language == 'en'" src="https://www.countryflags.io/us/shiny/16.png">
+                        <img class="flag" v-else-if="film.original_language == 'ja'" src="https://www.countryflags.io/jp/shiny/16.png">
+                        <img class="flag" v-else :src="`https://www.countryflags.io/${film.original_language}/shiny/16.png`">
                         <span>{{film.vote_average}}</span>
                     </div>
                 </div>
-
-
+            </div>
+            <div class="row">
+                <h1 class="category">Serie tv</h1>
+                <div class="card" v-for="(series, index) in tvSeries" :key="index">
+                    <div class="card-front">
+                        <img :src="`https://image.tmdb.org/t/p/original/${series.poster_path}`" alt="">
+                    </div>
+                    <div class="card-rear">
+                        <span class="title">{{series.name}}</span>
+                        <span>{{series.original_name}}</span>
+                        <img class="flag" v-if="series.original_language == 'en'" src="https://www.countryflags.io/us/shiny/16.png">
+                        <img class="flag" v-else-if="series.original_language == 'ja'" src="https://www.countryflags.io/jp/shiny/16.png">
+                        <img class="flag" v-else :src="`https://www.countryflags.io/${series.original_language}/shiny/16.png`">
+                        <span>{{series.vote_average}}</span>
+                    </div>
+                </div>
             </div>
         </main>
     </div>
