@@ -5,12 +5,22 @@ let app = new Vue({
     data: {
         uri: "https://api.themoviedb.org/3",
         api_key: "c3f5703c26f5de5b9e058f16544de17b",
-        films: [],
-        tvSeries: [],
+        films: null,
+        tvSeries: null,
+        filmsPopular: [],
+        tvSeriesPopular: [],
         searchFilm: "",
         toggleFilmsSeries: true,
         toggleOpenFilter: false,
-        categories: []
+        categoriesMovie: [{
+            "id": null,
+            "name": "All"
+        }],
+        categoriesSeries: [{
+            "id": null,
+            "name": "All"
+        }],
+        indexCategory: 0
     },
     methods: {
         mariello() {
@@ -30,20 +40,54 @@ let app = new Vue({
         },
         toggleFilmSerie() {
             this.toggleFilmsSeries = !this.toggleFilmsSeries
+            this.indexCategory = 0
 
         },
         openFilter() {
             this.toggleOpenFilter = !this.toggleOpenFilter
-        }
+        },
+        selectCategorie(index) {
+            this.indexCategory = index
+
+        },
+
     },
     mounted() {
         axios.get(`${this.uri}/genre/movie/list?api_key=${this.api_key}&query=${this.searchFilm}`)
             .then((response) => {
-                this.categories = response.data.genres
-                console.log(this.categories);
+                this.categoriesMovie = [...this.categoriesMovie, ...response.data.genres]
+            });
+        axios.get(`${this.uri}/genre/tv/list?api_key=${this.api_key}&query=${this.searchFilm}`)
+            .then((response) => {
+                this.categoriesSeries = [...this.categoriesSeries, ...response.data.genres]
             });
 
+        axios.get(`${this.uri}/tv/popular?api_key=${this.api_key}&query=${this.searchFilm}`)
+            .then((response) => {
+                this.tvSeriesPopular = response.data.results
+            });
+        axios.get(`${this.uri}/movie/popular?api_key=${this.api_key}&query=${this.searchFilm}`)
+            .then((response) => {
+                this.filmsPopular = response.data.results
+            });
     },
-    computed: {},
-    created() {},
+    computed: {
+
+    },
 })
+
+
+// pippo() {
+//     this.filmsPopular = []
+//     axios.get(`${this.uri}/movie/popular?api_key=${this.api_key}&query=${this.searchFilm}`)
+//         .then((response) => {
+//             let list = response.data.results
+//             for (let i = 0; i < list.length; i++) {
+//                 const element = list[i];
+//                 if (element.genre_ids.includes(this.categoriesMovie[this.indexCategory].id)) {
+//                     console.log(response.data.results);
+//                     this.filmsPopular.push(response.data.results[i])
+//                 }
+//             }
+//         });
+// }

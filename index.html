@@ -21,13 +21,12 @@
                     <i class="fas fa-sliders-h" @click="openFilter()"></i>
                     <div class="filter" :class="toggleOpenFilter ? 'active' : ''">
                         <div class="filmsSeries">
-
                             <span :class="toggleFilmsSeries ? 'active' : ''" class="btn-menu" @click="toggleFilmSerie()">Film</span>
                             <span :class="toggleFilmsSeries ? '' : 'active'" class="btn-menu" @click="toggleFilmSerie()">Serie</span>
                         </div>
                         <div class="categories">
                             <ul>
-                                <li @click="" v-for="(category, index) in categories" :key="index" class="btn ">{{category.name}}</li>
+                                <li @click="selectCategorie(index)" v-for="(category, index) in (toggleFilmsSeries ? categoriesMovie : categoriesSeries)" :key="index" :class="index == indexCategory ? 'active' : ''" class="btn">{{category.name}}</li>
                             </ul>
                         </div>
                     </div>
