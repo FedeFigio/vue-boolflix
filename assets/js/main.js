@@ -8,7 +8,9 @@ let app = new Vue({
         films: [],
         tvSeries: [],
         searchFilm: "",
-
+        toggleFilmsSeries: true,
+        toggleOpenFilter: false,
+        categories: []
     },
     methods: {
         mariello() {
@@ -24,11 +26,24 @@ let app = new Vue({
         stars(vote) {
             let splitVote = vote.vote_average / 2
             let star = Math.round(splitVote)
-            console.log(Number(star));
             return Number(star)
+        },
+        toggleFilmSerie() {
+            this.toggleFilmsSeries = !this.toggleFilmsSeries
+
+        },
+        openFilter() {
+            this.toggleOpenFilter = !this.toggleOpenFilter
         }
     },
-    mounted() {},
+    mounted() {
+        axios.get(`${this.uri}/genre/movie/list?api_key=${this.api_key}&query=${this.searchFilm}`)
+            .then((response) => {
+                this.categories = response.data.genres
+                console.log(this.categories);
+            });
+
+    },
     computed: {},
     created() {},
 })

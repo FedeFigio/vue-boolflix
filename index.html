@@ -18,12 +18,25 @@
             <nav>
                 <div class="logo"></div>
                 <div class="menu">
+                    <i class="fas fa-sliders-h" @click="openFilter()"></i>
+                    <div class="filter" :class="toggleOpenFilter ? 'active' : ''">
+                        <div class="filmsSeries">
+
+                            <span :class="toggleFilmsSeries ? 'active' : ''" class="btn-menu" @click="toggleFilmSerie()">Film</span>
+                            <span :class="toggleFilmsSeries ? '' : 'active'" class="btn-menu" @click="toggleFilmSerie()">Serie</span>
+                        </div>
+                        <div class="categories">
+                            <ul>
+                                <li @click="" v-for="(category, index) in categories" :key="index" class="btn ">{{category.name}}</li>
+                            </ul>
+                        </div>
+                    </div>
                     <input type="text" placeholder="cerca" v-model="searchFilm" @keyup="mariello">
                 </div>
             </nav>
         </header>
         <main>
-            <div class="row">
+            <div v-if="toggleFilmsSeries" class="row">
                 <h1 class="category">Film</h1>
                 <div class="card" v-for="(film, index) in films" :key="index">
                     <div class="card-front">
@@ -38,11 +51,10 @@
                         <div class="stars-vote">
                             <i v-for="(star, index) in stars(film)" :key="index" class="fas fa-star"></i>
                         </div>
-
                     </div>
                 </div>
             </div>
-            <div class="row">
+            <div v-else class="row">
                 <h1 class="category">Serie tv</h1>
                 <div class="card" v-for="(series, index) in tvSeries" :key="index">
                     <div class="card-front">
