@@ -8,7 +8,8 @@
 }
 
 body {
-    background-color: gray;
+    background-color: rgb(27, 27, 27);
+    overflow: auto;
 }
 
 
@@ -45,11 +46,20 @@ input {
 main {}
 
 main .row {
-    padding: 30px;
+    padding: 70px 30px 40px 30px;
     background-color: rgb(27, 27, 27);
     display: flex;
     overflow-x: auto;
     min-width: 100%;
+    position: relative;
+    margin-top: 20px;
+}
+
+.category {
+    position: absolute;
+    top: 0;
+    left: 30px;
+    color: white;
 }
 
 ::-webkit-scrollbar {
@@ -67,9 +77,7 @@ main .row {
 }
 
  ::-webkit-scrollbar-track {
-    background: #ffffff;
-    border-radius: 10px;
-    box-shadow: inset 7px 10px 12px #f0f0f0;
+    background: rgb(27, 27, 27);
 }
 
 .card {
@@ -78,7 +86,7 @@ main .row {
     display: flex;
 }
 
-img {
+.card-front img {
     width: 100%;
     height: 100%;
     object-fit: cover;
@@ -126,4 +134,8 @@ img {
 
 .title {
     font-size: 15px;
+}
+
+.stars-vote {
+    display: flex;
 }

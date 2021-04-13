@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" />
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Dela+Gothic+One&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/master.css">
@@ -34,7 +35,10 @@
                         <img class="flag" v-if="film.original_language == 'en'" src="https://www.countryflags.io/us/shiny/16.png">
                         <img class="flag" v-else-if="film.original_language == 'ja'" src="https://www.countryflags.io/jp/shiny/16.png">
                         <img class="flag" v-else :src="`https://www.countryflags.io/${film.original_language}/shiny/16.png`">
-                        <span>{{film.vote_average}}</span>
+                        <div class="stars-vote">
+                            <i v-for="(star, index) in stars(film)" :key="index" class="fas fa-star"></i>
+                        </div>
+
                     </div>
                 </div>
             </div>
@@ -50,7 +54,9 @@
                         <img class="flag" v-if="series.original_language == 'en'" src="https://www.countryflags.io/us/shiny/16.png">
                         <img class="flag" v-else-if="series.original_language == 'ja'" src="https://www.countryflags.io/jp/shiny/16.png">
                         <img class="flag" v-else :src="`https://www.countryflags.io/${series.original_language}/shiny/16.png`">
-                        <span>{{series.vote_average}}</span>
+                        <div class="stars-vote">
+                            <i v-for="(star, index) in stars(series)" :key="index" class="fas fa-star"></i>
+                        </div>
                     </div>
                 </div>
             </div>
