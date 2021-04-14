@@ -56,10 +56,7 @@
                         </div>
                     </div>
                 </div>
-
-
                 <div v-for="(category, index) in categoriesMovie" :key="index" v-if="toggleFilmsSeries" class="row">
-
                     <h1 :id="`${category.name}`" class="category">{{category.name}}</h1>
                     <div @click="openPreview(i,film)" class="card" v-for="(film, i) in filterCategoryFilm(category.id)" :key="i">
 
@@ -72,7 +69,6 @@
                             <div class="img-preview">
                                 <img :src="`https://image.tmdb.org/t/p/original/${film.backdrop_path}`" alt="">
                             </div>
-
                             <div class="info-film">
                                 <h1>{{film.title}}</h1>
                                 <div class="wrap-info">
@@ -94,7 +90,6 @@
                                     </div>
                                 </div>
                             </div>
-
                         </div>
 
 
@@ -105,7 +100,6 @@
 
 
                         <div class="card-front">
-
                             <img :src="`https://image.tmdb.org/t/p/original/${film.poster_path}`" alt="">
                         </div>
                         <div class="card-rear">
