@@ -119,6 +119,7 @@
         width: 80vw;
         z-index: 15;
         border-radius: 10px;
+        color: white;
     }
     
     .img-preview {
@@ -137,12 +138,43 @@
     
     .info-film {
         width: 100%;
-        height: 30%;
+        height: 100%;
         background-color: rgba(0, 0, 0, .9);
         position: absolute;
         bottom: 0;
         left: 0;
-        border-radius: 0 0 10px 10px;
+        border-radius: 10px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    }
+    
+    .preview:hover .info-film {
+        display: flex;
+    }
+    
+    .preview h1 {
+        text-align: center;
+    }
+    
+    .wrap-info {
+        display: flex;
+        width: 100%;
+        height: 100%;
+    }
+    
+    .wrap-info>div {
+        width: 50%;
+        padding: 20px;
+    }
+    
+    .description>* {
+        margin-bottom: 20px;
+    }
+    
+    .description p {
+        font-size: 12px;
     }
     
     main .row {

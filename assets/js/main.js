@@ -46,7 +46,6 @@ let app = new Vue({
             this.togglePreview.bool = !this.togglePreview.bool
             this.togglePreview.index = index
             this.togglePreview.film = film
-            console.log(film);
 
         },
         openFilter() {
