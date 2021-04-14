@@ -12,15 +12,9 @@ let app = new Vue({
         searchFilm: "",
         toggleFilmsSeries: true,
         toggleOpenFilter: false,
-        categoriesMovie: [{
-            "id": null,
-            "name": "All"
-        }],
-        categoriesSeries: [{
-            "id": null,
-            "name": "All"
-        }],
-        indexCategory: 0
+        categoriesMovie: [],
+        categoriesSeries: [],
+        indexCategory: 0,
     },
     methods: {
         mariello() {
@@ -48,46 +42,47 @@ let app = new Vue({
         },
         selectCategorie(index) {
             this.indexCategory = index
-
         },
 
+        filterCategoryFilm(id) {
+            return this.filmsPopular.filter((film) => {
+                return film.genre_ids.includes(id)
+            }).slice(0, 5)
+
+        },
+        filterCategorySeries(id) {
+            return this.tvSeriesPopular.filter((film) => {
+                return film.genre_ids.includes(id)
+            }).slice(0, 5)
+        }
     },
     mounted() {
         axios.get(`${this.uri}/genre/movie/list?api_key=${this.api_key}&query=${this.searchFilm}`)
             .then((response) => {
-                this.categoriesMovie = [...this.categoriesMovie, ...response.data.genres]
+                this.categoriesMovie = response.data.genres
             });
         axios.get(`${this.uri}/genre/tv/list?api_key=${this.api_key}&query=${this.searchFilm}`)
             .then((response) => {
-                this.categoriesSeries = [...this.categoriesSeries, ...response.data.genres]
+                this.categoriesSeries = response.data.genres
             });
 
-        axios.get(`${this.uri}/tv/popular?api_key=${this.api_key}&query=${this.searchFilm}`)
-            .then((response) => {
-                this.tvSeriesPopular = response.data.results
-            });
-        axios.get(`${this.uri}/movie/popular?api_key=${this.api_key}&query=${this.searchFilm}`)
-            .then((response) => {
-                this.filmsPopular = response.data.results
-            });
-    },
-    computed: {
+
+        for (let i = 0; i < 50; i++) {
+            axios.get(`${this.uri}/movie/popular?api_key=${this.api_key}&query=${this.searchFilm}&page=${i + 1}`)
+                .then((response) => {
+                    this.filmsPopular = [...this.filmsPopular, ...response.data.results]
+                });
+        }
+
+
+        for (let i = 0; i < 50; i++) {
+            axios.get(`${this.uri}/tv/popular?api_key=${this.api_key}&query=${this.searchFilm}&page=${i + 1}`)
+                .then((response) => {
+                    this.tvSeriesPopular = [...this.tvSeriesPopular, ...response.data.results]
+                });
+        }
 
     },
+    computed: {},
+    watch() {}
 })
-
-
-// pippo() {
-//     this.filmsPopular = []
-//     axios.get(`${this.uri}/movie/popular?api_key=${this.api_key}&query=${this.searchFilm}`)
-//         .then((response) => {
-//             let list = response.data.results
-//             for (let i = 0; i < list.length; i++) {
-//                 const element = list[i];
-//                 if (element.genre_ids.includes(this.categoriesMovie[this.indexCategory].id)) {
-//                     console.log(response.data.results);
-//                     this.filmsPopular.push(response.data.results[i])
-//                 }
-//             }
-//         });
-// }

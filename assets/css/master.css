@@ -14,18 +14,25 @@
     }
     /* HEADER */
     
+    a {
+        text-decoration: none;
+        color: white;
+    }
+    
     nav {
         height: 7vh;
         background-color: black;
         display: flex;
         justify-content: space-between;
-        padding: 5px 20px;
+        padding: 5px 30px;
     }
     
     nav .logo {
         height: 100%;
         width: 20%;
-        background-color: tomato;
+        color: red;
+        display: flex;
+        align-items: center;
     }
     
     nav .menu {
@@ -34,6 +41,12 @@
         justify-content: flex-end;
         align-items: center;
         color: white;
+        position: relative;
+    }
+    
+    nav i {
+        cursor: pointer;
+        font-size: 20px;
     }
     
     nav .menu>* {
@@ -42,13 +55,14 @@
     
     input {
         padding: 5px 10px;
+        border-radius: 5px;
     }
     
     nav .filter {
         display: none;
         position: fixed;
-        top: 100px;
-        left: 100px;
+        top: 7vh;
+        right: 0;
         z-index: 10;
         flex-direction: column;
         width: 60vw;
@@ -132,6 +146,7 @@
         margin: 5px;
         position: relative;
         display: flex;
+        cursor: pointer;
     }
     
     .card-front img {
