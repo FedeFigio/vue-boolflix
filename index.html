@@ -46,7 +46,7 @@
                         </div>
                         <div class="card-rear">
                             <span class="title">{{film.title}}</span>
-                            <span>{{film.original_title}}</span>
+
                             <img class="flag" v-if="film.original_language == 'en'" src="https://www.countryflags.io/us/shiny/16.png">
                             <img class="flag" v-else-if="film.original_language == 'ja'" src="https://www.countryflags.io/jp/shiny/16.png">
                             <img class="flag" v-else :src="`https://www.countryflags.io/${film.original_language}/shiny/16.png`">
@@ -78,7 +78,7 @@
                                 <div class="wrap-info">
 
                                     <div class="description">
-                                        <h3>descrizione</h3>
+                                        <h3>DESCRIZIONE</h3>
                                         <p>{{film.overview}}</p>
 
                                         <div class="stars-vote">
@@ -86,7 +86,12 @@
                                             <i v-for="(star, index) in stars(film)" :key="index" class="fas fa-star"></i>
                                         </div>
                                     </div>
-                                    <div class="info"></div>
+                                    <div class="info">
+                                        <h3>TITOLO ORIGINALE</h3>
+                                        <P>{{film.original_title}}</P>
+                                        <h3>ATTORI</h3>
+                                        <P></P>
+                                    </div>
                                 </div>
                             </div>
 
