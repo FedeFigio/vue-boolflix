@@ -61,8 +61,20 @@
                 <div v-for="(category, index) in categoriesMovie" :key="index" v-if="toggleFilmsSeries" class="row">
 
                     <h1 :id="`${category.name}`" class="category">{{category.name}}</h1>
-                    <div class="card" v-for="(film, index) in filterCategoryFilm(category.id)" :key="index">
+                    <div @click="openPreview(i,film)" class="card" v-for="(film, i) in filterCategoryFilm(category.id)" :key="i">
+
+                        <div v-if="togglePreview.bool && togglePreview.index == i && togglePreview.film == film" class="preview">
+                            <div class="img-preview">
+                                <img :src="`https://image.tmdb.org/t/p/original/${film.backdrop_path}`" alt="">
+                            </div>
+                            <div class="info-film">
+
+                            </div>
+
+                        </div>
+
                         <div class="card-front">
+
                             <img :src="`https://image.tmdb.org/t/p/original/${film.poster_path}`" alt="">
                         </div>
                         <div class="card-rear">
@@ -104,8 +116,8 @@
                             <img :src="`https://image.tmdb.org/t/p/original/${film.poster_path}`" alt="">
                         </div>
                         <div class="card-rear">
-                            <span class="title">{{film.title}}</span>
-                            <span>{{film.original_title}}</span>
+                            <span class="title">{{film.name}}</span>
+                            <span>{{film.original_name}}</span>
                             <img class="flag" v-if="film.original_language == 'en'" src="https://www.countryflags.io/us/shiny/16.png">
                             <img class="flag" v-else-if="film.original_language == 'ja'" src="https://www.countryflags.io/jp/shiny/16.png">
                             <img class="flag" v-else :src="`https://www.countryflags.io/${film.original_language}/shiny/16.png`">
