@@ -37,46 +37,25 @@
             </nav>
         </header>
         <main>
+            <!-- FILMS -->
             <div v-if="toggleFilmsSeries" class="wrap-category">
+
+                <!-- SEARCH FILMS -->
                 <div v-if="films" class="row">
                     <h1 class="category">Stai Cercando</h1>
-                    <div class="card" v-for="(film, index) in films" :key="index">
-                        <div class="card-front">
-                            <img :src="`https://image.tmdb.org/t/p/original/${film.poster_path}`" alt="">
-                        </div>
-                        <div class="card-rear">
-                            <span class="title">{{film.title}}</span>
+                    <div @click="openPreview(index,film)" class="card" v-for="(film, index) in films" :key="index">
 
-                            <img class="flag" v-if="film.original_language == 'en'" src="https://www.countryflags.io/us/shiny/16.png">
-                            <img class="flag" v-else-if="film.original_language == 'ja'" src="https://www.countryflags.io/jp/shiny/16.png">
-                            <img class="flag" v-else :src="`https://www.countryflags.io/${film.original_language}/shiny/16.png`">
-                            <div class="stars-vote">
-                                <i v-for="(star, index) in stars(film)" :key="index" class="fas fa-star"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div v-for="(category, index) in categoriesMovie" :key="index" v-if="toggleFilmsSeries" class="row">
-                    <h1 :id="`${category.name}`" class="category">{{category.name}}</h1>
-                    <div @click="openPreview(i,film)" class="card" v-for="(film, i) in filterCategoryFilm(category.id)" :key="i">
-
-
-
-
-
-
-                        <div v-if="togglePreview.bool && togglePreview.index == i && togglePreview.film == film" class="preview">
+                        <!-- OVERLAY PREVIEW -->
+                        <div v-if="togglePreview.bool && togglePreview.index == index && togglePreview.film == film" class="preview">
                             <div class="img-preview">
                                 <img :src="`https://image.tmdb.org/t/p/original/${film.backdrop_path}`" alt="">
                             </div>
                             <div class="info-film">
                                 <h1>{{film.title}}</h1>
                                 <div class="wrap-info">
-
                                     <div class="description">
                                         <h3>DESCRIZIONE</h3>
                                         <p>{{film.overview}}</p>
-
                                         <div class="stars-vote">
                                             <h5>voto </h5>
                                             <i v-for="(star, index) in stars(film)" :key="index" class="fas fa-star"></i>
@@ -91,14 +70,51 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="card-front">
+                            <img v-if="film.poster_path" :src="`https://image.tmdb.org/t/p/original/${film.poster_path}`" alt="">
+                            <img v-else src="assets/img/NoImageFound.jpg.png" alt="">
+                        </div>
+                        <div class="card-rear">
+                            <span class="title">{{film.title}}</span>
+                            <img class="flag" v-if="film.original_language == 'en'" src="https://www.countryflags.io/us/shiny/16.png">
+                            <img class="flag" v-else-if="film.original_language == 'ja'" src="https://www.countryflags.io/jp/shiny/16.png">
+                            <div class="stars-vote">
+                                <i v-for="(star, index) in stars(film)" :key="index" class="fas fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
+                <!-- CATEGORY FILMS -->
+                <div v-for="(category, index) in categoriesMovie" :key="index" v-if="toggleFilmsSeries" class="row">
+                    <h1 :id="`${category.name}`" class="category">{{category.name}}</h1>
+                    <div @click="openPreview(i,film)" class="card" v-for="(film, i) in filterCategoryFilm(category.id)" :key="i">
 
-
-
-
-
-
-
+                        <!-- OVERLAY PREVIEW -->
+                        <div v-if="togglePreview.bool && togglePreview.index == i && togglePreview.film == film" class="preview">
+                            <div class="img-preview">
+                                <img :src="`https://image.tmdb.org/t/p/original/${film.backdrop_path}`" alt="">
+                            </div>
+                            <div class="info-film">
+                                <h1>{{film.title}}</h1>
+                                <div class="wrap-info">
+                                    <div class="description">
+                                        <h3>DESCRIZIONE</h3>
+                                        <p>{{film.overview}}</p>
+                                        <div class="stars-vote">
+                                            <h5>voto </h5>
+                                            <i v-for="(star, index) in stars(film)" :key="index" class="fas fa-star"></i>
+                                        </div>
+                                    </div>
+                                    <div class="info">
+                                        <h3>TITOLO ORIGINALE</h3>
+                                        <P>{{film.original_title}}</P>
+                                        <h3>ATTORI</h3>
+                                        <P></P>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         <div class="card-front">
                             <img :src="`https://image.tmdb.org/t/p/original/${film.poster_path}`" alt="">
                         </div>
@@ -116,9 +132,37 @@
                 </div>
             </div>
             <div v-else class="wrap-category">
+
+                <!-- SEARC SERIES -->
                 <div v-if="tvSeries" class="row">
                     <h1 class="category">Stai Cercando</h1>
-                    <div class="card" v-for="(series, index) in tvSeries" :key="index">
+                    <div @click="openPreview(index,series)" class="card" v-for="(series, index) in tvSeries" :key="index">
+
+                        <!-- OVERLAY PREVIEW -->
+                        <div v-if="togglePreview.bool && togglePreview.index == index && togglePreview.film == series" class="preview">
+                            <div class="img-preview">
+                                <img :src="`https://image.tmdb.org/t/p/original/${series.backdrop_path}`" alt="">
+                            </div>
+                            <div class="info-film">
+                                <h1>{{series.name}}</h1>
+                                <div class="wrap-info">
+                                    <div class="description">
+                                        <h3>DESCRIZIONE</h3>
+                                        <p>{{series.overview}}</p>
+                                        <div class="stars-vote">
+                                            <h5>voto </h5>
+                                            <i v-for="(star, index) in stars(series)" :key="index" class="fas fa-star"></i>
+                                        </div>
+                                    </div>
+                                    <div class="info">
+                                        <h3>TITOLO ORIGINALE</h3>
+                                        <P>{{series.original_name}}</P>
+                                        <h3>ATTORI</h3>
+                                        <P></P>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         <div class="card-front">
                             <img :src="`https://image.tmdb.org/t/p/original/${series.poster_path}`" alt="">
                         </div>
@@ -134,9 +178,37 @@
                         </div>
                     </div>
                 </div>
+
+                <!-- CATEGORY SERIES -->
                 <div v-for="(category, index) in categoriesSeries" :key="index" class="row">
-                    <h1 class="category">{{category.name}}</h1>
-                    <div class="card" v-for="(film, index) in filterCategorySeries(category.id)" :key="index">
+                    <h1 :id="`${category.name}`" class="category">{{category.name}}</h1>
+                    <div @click="openPreview(index,film)" class="card" v-for="(film, index) in filterCategorySeries(category.id)" :key="index">
+
+                        <!-- OVERLAY PREVIEW -->
+                        <div v-if="togglePreview.bool && togglePreview.index == index && togglePreview.film == film" class="preview">
+                            <div class="img-preview">
+                                <img :src="`https://image.tmdb.org/t/p/original/${film.backdrop_path}`" alt="">
+                            </div>
+                            <div class="info-film">
+                                <h1>{{film.name}}</h1>
+                                <div class="wrap-info">
+                                    <div class="description">
+                                        <h3>DESCRIZIONE</h3>
+                                        <p>{{film.overview}}</p>
+                                        <div class="stars-vote">
+                                            <h5>voto </h5>
+                                            <i v-for="(star, index) in stars(film)" :key="index" class="fas fa-star"></i>
+                                        </div>
+                                    </div>
+                                    <div class="info">
+                                        <h3>TITOLO ORIGINALE</h3>
+                                        <P>{{film.original_name}}</P>
+                                        <h3>ATTORI</h3>
+                                        <P></P>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         <div class="card-front">
                             <img :src="`https://image.tmdb.org/t/p/original/${film.poster_path}`" alt="">
                         </div>
